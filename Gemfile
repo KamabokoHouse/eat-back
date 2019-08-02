@@ -33,7 +33,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-core'
   gem 'rspec_junit_formatter'
-  gem 'byebug',  '9.0.6', platform: :mri
+  gem 'sqlite3'
 end
 
 group :development do
