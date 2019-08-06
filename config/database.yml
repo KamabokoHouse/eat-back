@@ -9,8 +9,6 @@ development:
   database: eat_back_development
   username: eatbackdev
   password:
-  host: localhost
-  port: 5432
 
 test:
   <<: *default
