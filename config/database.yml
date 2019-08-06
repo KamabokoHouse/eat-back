@@ -10,7 +10,6 @@ development:
   username: eatback
   password:
   host: localhost
-  port: 5432
 
 test:
   <<: *default
@@ -18,7 +17,6 @@ test:
   username: eatback
   password:
   host: localhost
-  port: 5433
 
 production:
   <<: *default
