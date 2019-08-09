@@ -1,6 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: utf8
+  host: <%= ENV.fetch('DATABASE_HOST') { 'localhost' } %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
@@ -9,14 +10,12 @@ development:
   database: eat_back_development
   username: eatback
   password:
-  host: localhost
 
 test:
   <<: *default
   database: eat_back_test
   username: eatback
   password:
-  host: localhost
 
 production:
   <<: *default
