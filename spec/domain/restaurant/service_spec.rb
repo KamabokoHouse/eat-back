@@ -114,8 +114,8 @@ RSpec.describe "ランチを営業している店を知りたい" do
 }
 EOF
 
-        allow(Places).to receive(:getAll).and_return(:response)
+        allow(Places).to receive(:getAll).and_return(response)
         restaurant = RestaurantService.new(longitude: "1111", latitude: "2222")
-        expect(restaurant.getPlacesByWalkingDistance).to eq :response
+        expect(restaurant.getPlacesByWalkingDistance).to eq response
     end
   end
