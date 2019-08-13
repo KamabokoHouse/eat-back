@@ -2,7 +2,7 @@ require "./app/infrastructure/google/api/places"
 include Places
 
 class RestaurantService
-    def initialize(longitude, latitude)
+    def initialize(longitude:, latitude:)
         @longitude = longitude
         @latitude = latitude
     end
