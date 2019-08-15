@@ -1,15 +1,20 @@
 module Places
-    URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/output"
 
     def getAll(query)
-        uri = URI.parse(URL)
+        uri = URI.parse(ENV["GOOGLE_API_PLACES_URL"])
         uri.query = URI.encode_www_form(query)
 
         Rails.logger.info("url: #{uri}")
         response = Net::HTTP.get_response(uri)
-        Rails.logger.info("status: #{response.code}, body: #{response.body}")
+        
+        results = ActiveSupport::JSON.decode(response.body)
+        if results["status"] != "OK" then
+            raise "#{results["status"]}"
+        end
 
-        return response.body
+        Rails.logger.info("status: #{results["status"]}, body: #{results}")
+
+        return results
     end
 
     module_function :getAll
