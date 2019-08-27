@@ -1,4 +1,6 @@
 require "./app/domain/restaurant/service"
+require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe "800m以内で営業中の飲食店を知る" do
     context "存在する場合" do
@@ -116,23 +118,47 @@ RSpec.describe "800m以内で営業中の飲食店を知る" do
 EOF
         }
         let(:restaurant) {
-            RestaurantService.new(longitude: "1111", latitude: "2222")
+            RestaurantService.new(latitude: "1111", longitude: "2222")
         }
 
         before do
-            allow(Places).to receive(:getAll).and_return(response)
+            allow(ENV).to receive(:[]).and_call_original
+            allow(ENV).to receive(:[]).with("GOOGLE_API_PLACES_KEY").and_return("test_key")
         end
 
         it '店のリストが返却されること' do
+            expect(Places).to receive(:getAll).with({
+                "key" => "test_key",
+                "location" => "1111, 2222",
+                "radius" => 800,
+                "language" => "ja",
+                "opennow" => true,
+            }).and_return(response)
             expect(restaurant.getPlacesByWalkingDistance).to eq response
         end
     end
 
     context "存在しない場合" do
+        
+        let(:response) {{}}
+        let(:restaurant) {
+            RestaurantService.new(latitude: "1111", longitude: "2222")
+        }
+
         before do
+            allow(ENV).to receive(:[]).and_call_original
+            allow(ENV).to receive(:[]).with("GOOGLE_API_PLACES_KEY").and_return("test_key")
         end
 
-        it "空のリストが返されていること" do
+        it "空のリストが返却されること" do
+            expect(Places).to receive(:getAll).with({
+                "key" => "test_key",
+                "location" => "1111, 2222",
+                "radius" => 800,
+                "language" => "ja",
+                "opennow" => true,
+            }).and_return(response)
+            expect(restaurant.getPlacesByWalkingDistance).to eq response
         end
     end
   end
