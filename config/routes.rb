@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-    resources :restaurants
+    get '/restaurant', to: 'restaurants#show'
 end

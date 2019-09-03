@@ -2,6 +2,7 @@ require "net/http"
 require 'spec_helper'
 require 'rails_helper'
 require "./app/infrastructure/google/api/places"
+require "./app/infrastructure/google/api/places_errors"
 include Places
 
 RSpec.describe "Google API の Places APIと通信する" do
@@ -72,7 +73,7 @@ RSpec.describe "Google API の Places APIと通信する" do
 
         it "例外が投げられていること" do
             expect(Net::HTTP).to receive(:get_response).with(uri_for_test).and_return(bad_response)
-            expect { Places.getAll(query) }.to raise_error(RuntimeError)
+            expect { Places.getAll(query) }.to raise_error(PlacesErrors)
         end
     end
 end

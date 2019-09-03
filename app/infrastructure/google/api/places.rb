@@ -1,3 +1,4 @@
+require "./app/infrastructure/google/api/places_errors"
 require "net/http"
 module Places
 
@@ -10,7 +11,8 @@ module Places
         
         results = ActiveSupport::JSON.decode(response.body)
         if results["status"] != "OK" then
-            raise "#{results["status"]}"
+            # change status message to status code.
+            raise PlacesErrors.new(status: results["status"], detail: results["status"])
         end
 
         #Rails.logger.info("status: #{results["status"]}, body: #{results}")

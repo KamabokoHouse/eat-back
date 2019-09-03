@@ -1,8 +1,12 @@
 require "./app/infrastructure/google/api/places"
+require "./app/infrastructure/error/errors"
 include Places
 
 class RestaurantService
     def initialize(latitude:, longitude:)
+        validateParam(param: latitude)
+        validateParam(param: longitude)
+
         @latitude = latitude
         @longitude = longitude
     end
@@ -50,5 +54,12 @@ class RestaurantService
             "key" => ENV["GOOGLE_API_PLACES_KEY"],
             "next_page_token" => next_page_token
         })
+    end
+
+    private
+    def validateParam(param:)
+        if param.blank? then
+            raise Errors.new(status: 400, detail: "#{param} is required")
+        end
     end
 end

@@ -1,4 +1,5 @@
 require "./app/domain/restaurant/service"
+require "./app/infrastructure/error/errors"
 require 'spec_helper'
 require 'rails_helper'
 
@@ -126,5 +127,13 @@ RSpec.describe "800m以内で営業中の飲食店を知る" do
             }).and_return(response)
             expect(restaurant.getLanchPlaceAll).to eq response
         end
+    end
+
+    context "現在地が不明の場合" do
+
+        it "例外が投げられていること" do
+            expect { RestaurantService.new(latitude: nil, longitude: nil) }.to raise_error(Errors)
+        end
+        
     end
   end
