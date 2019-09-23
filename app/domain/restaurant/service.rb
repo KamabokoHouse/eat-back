@@ -27,7 +27,7 @@ class RestaurantService
     def getPlacesByWalkingDistance()
         return Places.getAll({
             "key" => ENV["GOOGLE_API_PLACES_KEY"],
-            "location" => "#@latitude, #@longitude",
+            "location" => "#{@latitude}, #{@longitude}",
             "radius" => 800,
             "language" => "ja",
             "opennow" => true,
@@ -59,7 +59,7 @@ class RestaurantService
     private
     def validateParam(param:)
         if param.blank? then
-            raise Errors.new(status: 400, detail: "#{param} is required")
+            raise Errors.new(status: 400, detail: "param is required")
         end
     end
 end

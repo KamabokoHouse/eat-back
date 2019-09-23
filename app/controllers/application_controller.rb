@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
 
     private
     def handleApplication(e)
-      #Rails.logger.error("status: #{e.status}, detail: #{e.detail}")
+      Rails.logger.error("status: #{e.status}, detail: #{e.detail}")
       render json: { status: e.status, detail: e.detail }, status: e.status
     end
 end

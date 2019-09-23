@@ -4,7 +4,10 @@ services:
   web:
     restart: always
     build: .
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    environment:
+      - GOOGLE_API_PLACES_URL=
+      - GOOGLE_API_PLACES_KEY=
     ports:
       - "3000:3000"
     volumes:

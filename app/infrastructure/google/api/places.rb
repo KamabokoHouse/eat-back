@@ -6,7 +6,7 @@ module Places
         uri = URI.parse(ENV["GOOGLE_API_PLACES_URL"])
         uri.query = URI.encode_www_form(query)
 
-        #Rails.logger.info("url: #{uri}")
+        Rails.logger.info("url: #{uri}")
         response = Net::HTTP.get_response(uri)
         
         results = ActiveSupport::JSON.decode(response.body)
@@ -15,7 +15,7 @@ module Places
             raise PlacesErrors.new(status: results["status"], detail: results["status"])
         end
 
-        #Rails.logger.info("status: #{results["status"]}, body: #{results}")
+        Rails.logger.info("status: #{results["status"]}, body: #{results}")
 
         return results
     end
