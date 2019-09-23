@@ -32,3 +32,11 @@ bundle exec rspec -f d
 ```
 
 ## Integration test
+
+```
+git chekout dev
+
+git marge <mybranch>
+
+git push -f
+```
