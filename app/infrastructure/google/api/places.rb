@@ -13,6 +13,7 @@ module Places
         
         results = ActiveSupport::JSON.decode(response.body)
         if results["status"] != "OK" then
+            Rails.logger.error("status: #{results["status"]}, body: #{results}")
             # change status message to status code.
             raise PlacesErrors.new(status: results["status"], detail: results["status"])
         end
