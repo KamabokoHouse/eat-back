@@ -1,15 +1,15 @@
 require "./app/infrastructure/google/api/places_errors"
-require "net/http"
+require "rest-client"
 module Places
 
     def getAll(query)
-        uri = URI.parse(ENV["GOOGLE_API_PLACES_URL"])
-        uri.query = URI.encode_www_form(query)
 
-        Rails.logger.info("url: #{uri}")
+        Rails.logger.info("url: #{ENV["GOOGLE_API_PLACES_URL"]}, pram: #{query}")
         # wait google genereted next result.
         sleep(5)
-        response = Net::HTTP.get_response(uri)
+        # google api need proxy for heroku
+        RestClient.proxy = ENV["QUOTAGUARDSTATIC_URL"]
+        response = RestClient.get(ENV["GOOGLE_API_PLACES_URL"], {params: query})
         
         results = ActiveSupport::JSON.decode(response.body)
         if results["status"] != "OK" then
