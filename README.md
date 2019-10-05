@@ -36,7 +36,7 @@ bundle exec rspec -f d
 ```
 git chekout dev
 
-git marge <mybranch>
+git merge <mybranch>
 
 git push -f
 ```
