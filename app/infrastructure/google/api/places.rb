@@ -7,6 +7,8 @@ module Places
         uri.query = URI.encode_www_form(query)
 
         Rails.logger.info("url: #{uri}")
+        # wait google genereted next result.
+        sleep(5)
         response = Net::HTTP.get_response(uri)
         
         results = ActiveSupport::JSON.decode(response.body)

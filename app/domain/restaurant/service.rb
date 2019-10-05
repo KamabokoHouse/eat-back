@@ -52,7 +52,7 @@ class RestaurantService
     def getNextPlace(next_page_token:)
         return Places.getAll({
             "key" => ENV["GOOGLE_API_PLACES_KEY"],
-            "next_page_token" => next_page_token
+            "pagetoken" => next_page_token
         })
     end
 
