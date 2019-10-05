@@ -92,12 +92,12 @@ RSpec.describe "800m以内で営業中の飲食店を知る" do
             
             expect(Places).to receive(:getAll).with({
                 "key" => "test_key",
-                "next_page_token" => "e08fd001-36ea-48cc-afbe-ac614a043cc2"
+                "pagetoken" => "e08fd001-36ea-48cc-afbe-ac614a043cc2"
             }).and_return(next_place)
 
             expect(Places).to receive(:getAll).with({
                 "key" => "test_key",
-                "next_page_token" => "70fcb979-971d-469e-9af6-7a2f44c3a22d"
+                "pagetoken" => "70fcb979-971d-469e-9af6-7a2f44c3a22d"
             }).and_return(last_place)
 
             expect(restaurant.getLanchPlaceAll).to eq all_places
